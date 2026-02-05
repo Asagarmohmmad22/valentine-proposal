@@ -92,16 +92,19 @@ button {
   cursor: pointer;
 }
 
+/* YES button */
 #yesBtn {
   background: linear-gradient(45deg, #ff4ecd, #ff0066);
   color: white;
   box-shadow: 0 0 20px #ff80d5;
 }
 
+/* NO button – hidden initially */
 #noBtn {
   background: #222;
   color: white;
   position: fixed;
+  display: none;
 }
 
 /* Celebration */
@@ -176,15 +179,13 @@ button {
 
 <!-- Celebration -->
 <div class="container celebrate" id="celebration">
-  <h1>I Love You Alot Mere Beautifull Jaan 💘🔥</h1>
+  <h1>I Love You Alot Mere Beautiful Jaan 💘🔥</h1>
 
-  <!-- YOUR PHOTOS -->
   <div class="memories">
     <img src="photo1.jpeg">
     <img src="photo2.jpeg">
   </div>
 
-  <!-- GIFS -->
   <div class="gifs">
     <img src="https://media.giphy.com/media/26FLdmIp6wJr91JAI/giphy.gif">
     <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
@@ -216,14 +217,23 @@ setInterval(() => {
   setTimeout(() => s.remove(), 3000);
 }, 400);
 
+/* Show NO button after 2 seconds */
+window.onload = () => {
+  setTimeout(() => {
+    const noBtn = document.getElementById("noBtn");
+    noBtn.style.display = "inline-block";
+    moveNo(); // place it randomly first time
+  }, 2000);
+};
+
 /* NO button dodge */
 const noBtn = document.getElementById("noBtn");
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
 function moveNo() {
-  noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
-  noBtn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+  noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+  noBtn.style.top = Math.random() * (window.innerHeight - 60) + "px";
 }
 
 /* YES button */
@@ -248,5 +258,3 @@ function fireworks() {
 
 </body>
 </html>
-
-
