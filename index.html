@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine ❤️</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  touch-action: manipulation;
+}
+
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ff4e8b, #b44cff, #ff1e56);
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+}
+
+/* Floating hearts */
+.heart {
+  position: fixed;
+  font-size: 24px;
+  animation: float 8s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(110vh) rotate(0deg);
+  }
+  to {
+    transform: translateY(-10vh) rotate(360deg);
+  }
+}
+
+/* Sparkles */
+.sparkle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  animation: sparkle 3s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes sparkle {
+  0%,100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* Center content */
+.container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Headings */
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.6rem;
+  color: #fff;
+  text-shadow: 0 0 20px #ffb6ff, 0 0 40px #ff4ecd;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Buttons */
+.buttons {
+  margin-top: 40px;
+  display: flex;
+  gap: 30px;
+}
+
+button {
+  padding: 15px 40px;
+  font-size: 1.3rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#yesBtn {
+  background: linear-gradient(45deg, #ff4ecd, #ff0066);
+  color: white;
+  box-shadow: 0 0 20px #ff80d5;
+}
+
+#yesBtn:active {
+  transform: scale(1.15);
+}
+
+#noBtn {
+  background: #222;
+  color: white;
+  position: fixed;
+}
+
+/* Celebration */
+.celebrate {
+  display: none;
+  animation: zoomIn 1s ease forwards;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.gifs img {
+  width: 120px;
+  margin: 10px;
+  border-radius: 15px;
+}
+
+/* Firework */
+.firework {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, #fff, transparent);
+  border-radius: 50%;
+  animation: firework 1s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes firework {
+  from { transform: scale(0); opacity: 1; }
+  to { transform: scale(20); opacity: 0; }
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+  .buttons {
+    flex-direction: column;
+    gap: 20px;
+  }
+  button {
+    width: 80%;
+    font-size: 1.1rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="question">
+  <h1>YASHDEEP, Do You Love Me? 💖</h1>
+  <div class="buttons">
+    <button id="yesBtn">YES ❤️</button>
+    <button id="noBtn">NO 😜</button>
+  </div>
+</div>
+
+<div class="container celebrate" id="celebration">
+  <h1>I Love You Too Betu 💘🔥</h1>
+  <div class="gifs">
+    <img src="https://media.giphy.com/media/26FLdmIp6wJr91JAI/giphy.gif">
+    <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+    <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
+  </div>
+</div>
+
+<script>
+const hearts = ["❤️","💖","💘","💝","💕","💞","💓"];
+const body = document.body;
+
+/* Floating hearts */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (18 + Math.random() * 22) + "px";
+  heart.style.animationDuration = (6 + Math.random() * 4) + "s";
+  body.appendChild(heart);
+  setTimeout(() => heart.remove(), 10000);
+}, 220);
+
+/* Sparkles */
+setInterval(() => {
+  const s = document.createElement("div");
+  s.className = "sparkle";
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
+  body.appendChild(s);
+  setTimeout(() => s.remove(), 3000);
+}, 400);
+
+/* NO button dodge */
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseenter", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+function moveNo() {
+  const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+  const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
+}
+
+/* YES button */
+document.getElementById("yesBtn").onclick = () => {
+  document.getElementById("question").style.display = "none";
+  document.getElementById("celebration").style.display = "flex";
+  fireworkLoop();
+};
+
+/* Fireworks */
+function fireworkLoop() {
+  setInterval(() => {
+    const f = document.createElement("div");
+    f.className = "firework";
+    f.style.left = Math.random() * 100 + "vw";
+    f.style.top = Math.random() * 100 + "vh";
+    body.appendChild(f);
+    setTimeout(() => f.remove(), 1000);
+  }, 300);
+}
+</script>
+
+</body>
+</html>
